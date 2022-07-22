@@ -1,7 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:quiz_app/questions.dart';
 
 class QuizBrain {
-  List<Question> questionBank = [
+  List<Icon> _score = [];
+  int _quesNo = 0;
+  int _rightAns = 0;
+
+  List<Question> _questionBank = [
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
     Question('A slug\'s blood is green.', true),
@@ -27,4 +32,41 @@ class QuizBrain {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  Question getQuestion() {
+    return _questionBank[_quesNo];
+  }
+
+  int getQuesNo() {
+    return _quesNo;
+  }
+
+  void nextQuestion(bool b) {
+    if (_quesNo < _questionBank.length - 1) {
+      if (_questionBank[_quesNo].questionAnswer == b) {
+        _score.add(
+          Icon(Icons.check, color: Colors.green),
+        );
+        _rightAns++;
+      } else {
+        _score.add(
+          Icon(Icons.close, color: Colors.red),
+        );
+      }
+      _quesNo++;
+    } //else {
+    // _quesNo = 0;
+    // _score = [];
+    //}
+    print(_quesNo);
+    print(_questionBank.length);
+  }
+
+  int getRightAns() {
+    return _rightAns;
+  }
+
+  List<Icon> getScore() {
+    return _score;
+  }
 }
